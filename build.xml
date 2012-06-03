@@ -1,4 +1,4 @@
-<project name="SimuladorDeChoques" basedir="." default="medir.cobertura">
+<project name="titiritero" basedir="." default="test">
 	<property name="build" location="build" />
 	<property name="libs" location="libs" />
 	<property name="classes.dir" location="build" />
@@ -155,6 +155,6 @@
 </target>
 
 
-	<target name="medir.cobertura" depends="ejecutar.tests,coverage-report,summary-coverage-report,alternate-coverage-report" description="Compile, instrument ourself, run the tests and generate JUnit and coverage reports."/>
+	<target name="test" depends="ejecutar.tests,coverage-report,summary-coverage-report,alternate-coverage-report" description="Compile, instrument ourself, run the tests and generate JUnit and coverage reports."/>
 
 </project>
