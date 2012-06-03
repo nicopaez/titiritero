@@ -21,6 +21,13 @@
 		<pathelement location="${build}/tests" />
 	</path>
 
+	<path id="cobertura.classpath">
+		<fileset dir="${cobertura.dir}">
+			<include name="cobertura.jar" />
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
 	<target name="setup">
 		<delete dir="${build}" />
 		<mkdir dir="${build}"/>
@@ -39,12 +46,6 @@
 		</javac>
 	</target>
 
-	<path id="cobertura.classpath">
-		<fileset dir="${cobertura.dir}">
-			<include name="cobertura.jar" />
-			<include name="*.jar" />
-		</fileset>
-	</path>
 
 	<target name="ejecutar.tests" depends="compilar.tests">
 		<junit fork="yes" failureProperty="test.failure"  forkmode="once">
@@ -73,29 +74,11 @@
 	<taskdef classpathref="cobertura.classpath" resource="tasks.properties"/>
 
 	<target name="instrumentar.aplicacion" depends="compilar.aplicacion, init">
-		<!--
-			Remove the coverage data file and any old instrumentation.
--->		
-		
 		<delete file="${build}/cobertura.ser"/>					
 		<delete dir="${instrumented.dir}" />
-		<!--
-			Instrument the application classes, writing the
-			instrumented classes into ${build.instrumented.dir}.
-		-->
 		<cobertura-instrument todir="${instrumented.dir}" datafile="${build}/cobertura.ser">
-			<!--
-				The following line causes instrument to ignore any
-				source line containing a reference to log4j, for the
-				purposes of coverage reporting.
-			-->
 			<ignore regex="org.apache.log4j.*" />
-
 			<fileset dir="${classes.dir}">
-				<!--
-					Instrument all the application classes, but
-					don't instrument the test classes.
-				-->
 				<include name="**/*.class" />
 				<exclude name="**/*Test.class" />
 			</fileset>
@@ -113,26 +96,14 @@
 	</target>
 
 	<target name="coverage-report">
-		<!--
-			Generate an XML file containing the coverage data using
-			the "srcdir" attribute.
-		-->
 		<cobertura-report srcdir="${src.dir}" destdir="${coverage.xml.dir}" format="xml" datafile="${build}/cobertura.ser" />
 	</target>
 
 	<target name="summary-coverage-report">
-		<!--
-			Generate an summary XML file containing the coverage data using
-			the "srcdir" attribute.
-		-->
 		<cobertura-report srcdir="${src.dir}" destdir="${coverage.summaryxml.dir}" format="summaryXml" datafile="${build}/cobertura.ser" />
 	</target>
 
 	<target name="alternate-coverage-report">
-		<!--
-			Generate a series of HTML files containing the coverage
-			data in a user-readable form using nested source filesets.
-		-->
 		<cobertura-report destdir="${coverage.html.dir}" datafile="${build}/cobertura.ser">
 			<fileset dir="${src.dir}">
 				<include name="**/*.java"/>
@@ -140,19 +111,16 @@
 		</cobertura-report>
 	</target>
 
-<taskdef resource="checkstyletask.properties"
-         classpath="${libs}/checkstyle-5.5-all.jar"/>
+	<taskdef resource="checkstyletask.properties" classpath="${libs}/checkstyle-5.5-all.jar"/>
 
-<target name="checkstyle"
-        description="Generates a report of code convention violations.">
-
-  <checkstyle config="${libs}/sun_checks.xml"
+	<target name="checkstyle" description="Generates a report of code convention violations.">
+  		<checkstyle config="${libs}/sun_checks.xml"
               failureProperty="checkstyle.failure"
               failOnViolation="false">
-    <fileset dir="src" includes="**/*.java"/>
-  </checkstyle>
+	    	<fileset dir="src" includes="**/*.java"/>
+  		</checkstyle>
 
-</target>
+	</target>
 
 
 	<target name="test" depends="ejecutar.tests,coverage-report,summary-coverage-report,alternate-coverage-report" description="Compile, instrument ourself, run the tests and generate JUnit and coverage reports."/>
