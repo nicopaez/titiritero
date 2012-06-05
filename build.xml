@@ -31,17 +31,17 @@
 	<target name="setup">
 		<delete dir="${build}" />
 		<mkdir dir="${build}"/>
-		<mkdir dir="${build}/app"/>
+		<mkdir dir="${build}/classes"/>
 		<mkdir dir="${build}/tests"/>
 	</target>
 
 	<target name="compilar.aplicacion" depends="setup">
-		<javac srcdir="src" destdir="${build}" debug="yes">
+		<javac srcdir="src" destdir="${build}" includeantruntime="false" debug="yes" target="1.6">
 		</javac>
 	</target>
-
+	
 	<target name="compilar.tests" depends="instrumentar.aplicacion">
-		<javac srcdir="test" destdir="${build}/tests" includeantruntime="false">
+		<javac srcdir="test" destdir="${build}/tests" includeantruntime="false" debug="yes" target="1.6">
 			<classpath refid="classpath" />
 		</javac>
 	</target>
@@ -124,5 +124,15 @@
 
 
 	<target name="test" depends="ejecutar.tests,coverage-report,summary-coverage-report,alternate-coverage-report" description="Compile, instrument ourself, run the tests and generate JUnit and coverage reports."/>
+
+	<target name="compilar.paquete" depends="test">
+		
+		<javac srcdir="src" destdir="${build}/classes" debug="no">
+		</javac>
+	</target>
+
+	<target name="empaquetar" depends="compilar.paquete">
+		<jar destfile="${build}/dist/titiritero.jar" basedir="${build}/classes"/>
+	</target>
 
 </project>
