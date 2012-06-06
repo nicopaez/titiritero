@@ -48,6 +48,7 @@
 
 
 	<target name="ejecutar.tests" depends="compilar.tests">
+		<copy file="test/res/imagen.png" tofile="${build}/tests/res/imagen.png"/>
 		<junit fork="yes" failureProperty="test.failure"  forkmode="once">
 			<!-- <classpath refid="classpath" /> -->
 			<sysproperty key="net.sourceforge.cobertura.datafile"
