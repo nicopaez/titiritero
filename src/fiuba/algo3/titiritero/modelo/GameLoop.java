@@ -10,6 +10,22 @@ public class GameLoop implements Runnable{
 	private Set<ObjetoDibujable> objetosDibujables;
 	private boolean estaEjecutando;
 	private int frecuencia;
+	public int getFrecuencia() {
+		return frecuencia;
+	}
+
+	public void setFrecuencia(int frecuencia) {
+		this.frecuencia = frecuencia;
+	}
+
+	public boolean estaEjecutando() {
+		return estaEjecutando;
+	}
+
+	public SuperficieDeDibujo getSuperficieDeDibujo() {
+		return superficieDeDibujo;
+	}
+
 	private SuperficieDeDibujo superficieDeDibujo;
 	private Thread hilo;
 	
@@ -73,4 +89,5 @@ public class GameLoop implements Runnable{
 		this.estaEjecutando = false;
 		this.hilo.interrupt();
 	}
+	
 }

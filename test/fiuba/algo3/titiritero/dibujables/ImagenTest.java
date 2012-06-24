@@ -1,15 +1,11 @@
 package fiuba.algo3.titiritero.dibujables;
 
-import static org.junit.Assert.*;
-
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.IOException;
 import java.net.URL;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
