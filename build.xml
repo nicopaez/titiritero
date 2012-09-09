@@ -96,7 +96,7 @@
 		<cobertura-check branchrate="34" totallinerate="100" />
 	</target>
 
-	<target name="coverage-report">
+	<target name="coverage-report" depends="ejecutar.tests">
 		<cobertura-report srcdir="${src.dir}" destdir="${coverage.xml.dir}" format="xml" datafile="${build}/cobertura.ser" />
 	</target>
 
@@ -131,5 +131,8 @@
 	<target name="empaquetar" depends="compilar.paquete">
 		<jar destfile="${build}/dist/titiritero.jar" basedir="${build}/classes"/>
 	</target>
+
+	<target name="integracion-continua" depends="coverage-report" description="Ejecuta todas las tareas de integracion y genera los correspondientes reportes"/>
+
 
 </project>
