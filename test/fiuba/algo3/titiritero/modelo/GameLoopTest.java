@@ -62,7 +62,7 @@ public class GameLoopTest {
 	}
 
 	@Test
-	public void agregarNoDeberiaAgregarDuplicador() {
+	public void agregarNoDeberiaAgregarDuplicado() {
 		ObjetoVivo unObjetoVivo = Mockito.mock(ObjetoVivo.class);
 		SuperficieDeDibujo superficieDeDibujo = Mockito.mock(SuperficieDeDibujo.class);
 		GameLoop gameLoop = new GameLoop(superficieDeDibujo);
@@ -70,6 +70,21 @@ public class GameLoopTest {
 		gameLoop.agregar(unObjetoVivo);
 
 		Assert.assertEquals(1, gameLoop.getCantidadDeObjetosVivos());
+	}
+	
+	@Test
+	public void deberiaNootificarObservadoresAlComenzarCadaCiclo() throws InterruptedException {
+		SuperficieDeDibujo unaSuperficieDeDibujo = Mockito.mock(SuperficieDeDibujo.class);
+		int frecuencia = 500;
+		GameLoop gameLoop = new GameLoop(frecuencia, unaSuperficieDeDibujo);
+		ObservadorDeGameLoop unObservador = Mockito.mock(ObservadorDeGameLoop.class);
+		gameLoop.agregarObservador(unObservador);
+
+		gameLoop.iniciarEjecucion();
+		Thread.sleep(200);
+		gameLoop.detenerEjecucion();
+		
+		Mockito.verify(unObservador).notificarCicloFinalizado();
 	}
 
 }

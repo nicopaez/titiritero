@@ -1,6 +1,8 @@
 package fiuba.algo3.titiritero.modelo;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class GameLoop implements Runnable{
@@ -8,6 +10,7 @@ public class GameLoop implements Runnable{
 	private static final int FRECUENCIA_DEFAULT = 500;
 	private Set<ObjetoVivo> objetosVivos;
 	private Set<ObjetoDibujable> objetosDibujables;
+	private List<ObservadorDeGameLoop> observadores;
 	private boolean estaEjecutando;
 	private int frecuencia;
 	public int getFrecuencia() {
@@ -34,25 +37,26 @@ public class GameLoop implements Runnable{
 		this.superficieDeDibujo = superficieDeDibujo;
 		this.objetosVivos = new HashSet<ObjetoVivo>();
 		this.objetosDibujables= new HashSet<ObjetoDibujable>();
+		this.observadores = new ArrayList<ObservadorDeGameLoop>();
 	}
 
 	public GameLoop(SuperficieDeDibujo superficieDeDibujo) {
 		this(FRECUENCIA_DEFAULT, superficieDeDibujo);
 	}
 
-	public void agregar(ObjetoVivo objetoVivo) {
+	public synchronized void agregar(ObjetoVivo objetoVivo) {
 		this.objetosVivos.add(objetoVivo);
 	}
 
-	public void remover(ObjetoVivo objetoVivo) {
+	public synchronized void remover(ObjetoVivo objetoVivo) {
 		this.objetosVivos.remove(objetoVivo);
 	}
 
-	public void agregar(ObjetoDibujable objetoDibujable) {
+	public synchronized void agregar(ObjetoDibujable objetoDibujable) {
 		this.objetosDibujables.add(objetoDibujable);
 	}
 
-	public void remover(ObjetoDibujable objetoDibujable) {
+	public synchronized void remover(ObjetoDibujable objetoDibujable) {
 		this.objetosDibujables.remove(objetoDibujable);
 	}
 	
@@ -66,6 +70,9 @@ public class GameLoop implements Runnable{
 				objetoDibujable.dibujar(this.superficieDeDibujo);
 			}
 			this.superficieDeDibujo.actualizar();
+			for(ObservadorDeGameLoop observador: this.observadores) {
+				observador.notificarCicloFinalizado();
+			}			
 			try {
 				Thread.sleep(this.frecuencia);
 			} catch (InterruptedException e) {
@@ -89,5 +96,12 @@ public class GameLoop implements Runnable{
 		this.estaEjecutando = false;
 		this.hilo.interrupt();
 	}
-	
+
+	public synchronized void agregarObservador(ObservadorDeGameLoop unObservador) {
+		this.observadores.add(unObservador);		
+	}
+
+	public synchronized void removerObservador(ObservadorDeGameLoop unObservador) {
+		this.observadores.remove(unObservador);		
+	}
 }

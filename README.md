@@ -1,4 +1,4 @@
-Titiritero 
+Titiritero (v20121201)
 ==========
 [<img src="https://secure.travis-ci.org/nicopaez/titiritero.png?branch=master" alt="Build Status" />](http://travis-ci.org/nicopaez/titiritero)
 
