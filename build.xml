@@ -138,7 +138,7 @@
 		<jar destfile="${build}/dist/titiritero.jar" basedir="${build}/classes">
 			<manifest>
 				<attribute name="Specification-Version" value="${version}"/>
-				<attribute name="Implementation-Version" value="${BUILD_NUMBER.PATH}"/>
+				<attribute name="Implementation-Version" value="${build.number}"/>
 			</manifest>
 
 		</jar>
