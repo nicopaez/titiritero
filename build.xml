@@ -12,6 +12,9 @@
 	<property name="coverage.summaryxml.dir" location="${reports.dir}/cobertura-summary-xml" />
 	<property name="coverage.html.dir" location="${reports.dir}/cobertura-html" />
 
+	<property name="version" value="5555" />
+
+
 	<path id="classpath">
 		<fileset dir="${libs}">
 			<include name="*.jar" />
@@ -129,10 +132,15 @@
 	</target>
 
 	<target name="empaquetar" depends="compilar.paquete">
-		<jar destfile="${build}/dist/titiritero.jar" basedir="${build}/classes"/>
+		<jar destfile="${build}/dist/titiritero.jar" basedir="${build}/classes">
+			<manifest>
+				<attribute name="Specification-Version" value="${version}"/>
+				<attribute name="Implementation-Version" value="${BUILD_NUMBER.PATH}"/>
+			</manifest>
+
+		</jar>
 	</target>
 
 	<target name="integracion-continua" depends="coverage-report" description="Ejecuta todas las tareas de integracion y genera los correspondientes reportes"/>
-
 
 </project>
