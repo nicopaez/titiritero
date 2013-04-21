@@ -9,7 +9,7 @@ public class Circulo extends Figura {
 
 	private int radio;
 	
-	public Circulo(int radio, ObjetoPosicionable objetoPosicionable){
+	public Circulo(int radio, ObjetoPosicionable objetoPosicionable) {
 		super(objetoPosicionable);
 		this.radio = radio;
 	}

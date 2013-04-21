@@ -17,7 +17,7 @@ public abstract class Figura implements ObjetoDibujable {
 		this.color = unColor; 
 	}
 	
-	public Color getColor(){
+	public Color getColor() {
 		return this.color;
 	}
 	

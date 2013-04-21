@@ -10,7 +10,7 @@ public class Cuadrado extends Figura {
 	private int ancho;
 	private int alto;
 	
-	public Cuadrado(int ancho, int alto, ObjetoPosicionable objetoPosicionable){
+	public Cuadrado(int ancho, int alto, ObjetoPosicionable objetoPosicionable) {
 		super(objetoPosicionable);
 		this.ancho = ancho;
 		this.alto = alto;
