@@ -6,4 +6,8 @@ Titiritero es un framework para desarrollo de videos juegos y aplicaciones simul
 
 Este framework no fue pensado para el desarrollo de juegos de índole profesional, pues su foco está en falicitar ciertos aspectos técnicos y en promover el uso de los principios de diseño orientado a objetos. Esto hace que ciertos aspecto importante para juegos profesionales puedan verse perjudicados. 
 
+## Descarga
+Puedes descargar la última versión estable siguiendo [este link](https://nicopaez.ci.cloudbees.com/job/Titiritero-release/lastSuccessfulBuild/artifact/build/dist/titiritero.jar) .
+
+## Licencia
 El código de este proyecto es provisto bajo Licencia Apache 2.0
